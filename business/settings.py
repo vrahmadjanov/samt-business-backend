@@ -133,6 +133,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Static files
+STATIC_URL = 'static/'
+STATIC_ROOT = '/app/staticfiles'
+
 # Custom user model
 AUTH_USER_MODEL = 'core.BusinessUser'
 
@@ -145,3 +149,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     )
 }
+
+# Behind reverse proxy (Nginx) under subpath /business
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+FORCE_SCRIPT_NAME = '/business'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
